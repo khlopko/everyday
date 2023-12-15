@@ -1,44 +1,58 @@
 function createList() {
-    const parent = document.getElementById('list')
+    const parent = document.getElementById('list');
     if (!parent) {
         return;
     }
     parent.innerHTML = '';
     const items = load();
-
     if (items.length === 0) {
-        const div = document.createElement('div');
-        const text = document.createElement('span');
-        text.innerHTML = 'No tasks';
-        div.appendChild(text);
-        parent.appendChild(div);
-        return;
+        parent.appendChild(noTasksElement());
     }
-
     items.forEach((item) => {
         const div = document.createElement('div');
+        div.className = item.isDone ? 'faded' : '';
+        div.appendChild(doneButton(item));
+        div.appendChild(taskBody(item));
+        div.appendChild(removeButton(item));
         parent.appendChild(div);
-        const done = document.createElement('button');
-        done.innerHTML = item.isDone ? 'undo' : 'done';
-        done.className = 'primary' + (item.isDone ? ' done' : '');
-        done.onclick = () => {
-            toggle(item.id);
-            createList();
-        };
-        div.appendChild(done);
-        const text = document.createElement('span');
-        text.innerHTML = item.name;
-        text.className = item.isDone ? 'done' : '';
-        div.appendChild(text);
-        const remove = document.createElement('button');
-        remove.className = 'remove';
-        remove.innerHTML = 'remove';
-        remove.onclick = () => {
-            deleteItem(item.id);
-            createList();
-        };
-        div.appendChild(remove);
     });
+}
+
+function doneButton(item: TaskItem): HTMLElement {
+    const done = document.createElement('button');
+    done.innerHTML = item.isDone ? 'undo' : 'done';
+    done.className = 'primary' + (item.isDone ? ' done' : '');
+    done.onclick = () => {
+        toggle(item.id);
+        createList();
+    };
+    return done;
+}
+
+function taskBody(item: TaskItem): HTMLElement {
+    const text = document.createElement('span');
+    text.innerHTML = item.name;
+    text.className = item.isDone ? 'done' : '';
+    return text;
+}
+
+function removeButton(item: TaskItem): HTMLElement {
+    const remove = document.createElement('button');
+    remove.className = 'remove';
+    remove.innerHTML = 'remove';
+    remove.onclick = () => {
+        deleteItem(item.id);
+        createList();
+    };
+    return remove;
+}
+
+function noTasksElement(): HTMLElement {
+    const div = document.createElement('div');
+    const text = document.createElement('span');
+    text.innerHTML = 'No tasks';
+    div.appendChild(text);
+    return div;
 }
 
 function add() {
@@ -53,7 +67,7 @@ function addListener() {
         return;
     }
     input.addEventListener('keyup', function(event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             add();
             input.value = '';

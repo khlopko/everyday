@@ -1,12 +1,23 @@
 html {
     margin: 0;
-    padding: 0;
+    padding: 16pt;
 }
 
 body {
     width: 45%;
     margin: auto;
-    padding: 16pt;
+}
+
+@media (max-width: 1200px) {
+    body {
+        width: 75%;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        width: 100%;
+    }
 }
 
 #list {
@@ -54,4 +65,8 @@ button:hover {
 
 .remove {
     color: red;
+}
+
+.faded {
+    opacity: 0.5;
 }

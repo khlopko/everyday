@@ -6,37 +6,49 @@ function createList() {
     parent.innerHTML = '';
     var items = load();
     if (items.length === 0) {
-        var div = document.createElement('div');
-        var text = document.createElement('span');
-        text.innerHTML = 'No tasks';
-        div.appendChild(text);
-        parent.appendChild(div);
-        return;
+        parent.appendChild(noTasksElement());
     }
     items.forEach(function (item) {
         var div = document.createElement('div');
+        div.className = item.isDone ? 'faded' : '';
+        div.appendChild(doneButton(item));
+        div.appendChild(taskBody(item));
+        div.appendChild(removeButton(item));
         parent.appendChild(div);
-        var done = document.createElement('button');
-        done.innerHTML = item.isDone ? 'undo' : 'done';
-        done.className = 'primary' + (item.isDone ? ' done' : '');
-        done.onclick = function () {
-            toggle(item.id);
-            createList();
-        };
-        div.appendChild(done);
-        var text = document.createElement('span');
-        text.innerHTML = item.name;
-        text.className = item.isDone ? 'done' : '';
-        div.appendChild(text);
-        var remove = document.createElement('button');
-        remove.className = 'remove';
-        remove.innerHTML = 'remove';
-        remove.onclick = function () {
-            deleteItem(item.id);
-            createList();
-        };
-        div.appendChild(remove);
     });
+}
+function doneButton(item) {
+    var done = document.createElement('button');
+    done.innerHTML = item.isDone ? 'undo' : 'done';
+    done.className = 'primary' + (item.isDone ? ' done' : '');
+    done.onclick = function () {
+        toggle(item.id);
+        createList();
+    };
+    return done;
+}
+function taskBody(item) {
+    var text = document.createElement('span');
+    text.innerHTML = item.name;
+    text.className = item.isDone ? 'done' : '';
+    return text;
+}
+function removeButton(item) {
+    var remove = document.createElement('button');
+    remove.className = 'remove';
+    remove.innerHTML = 'remove';
+    remove.onclick = function () {
+        deleteItem(item.id);
+        createList();
+    };
+    return remove;
+}
+function noTasksElement() {
+    var div = document.createElement('div');
+    var text = document.createElement('span');
+    text.innerHTML = 'No tasks';
+    div.appendChild(text);
+    return div;
 }
 function add() {
     var input = getInputElement();
@@ -49,7 +61,7 @@ function addListener() {
         return;
     }
     input.addEventListener('keyup', function (event) {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             event.preventDefault();
             add();
             input.value = '';
