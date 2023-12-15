@@ -125,6 +125,11 @@ function reset() {
     createList();
 }
 
+function clearAll() {
+    update([]);
+    createList();
+}
+
 function update(items: TaskItem[]) {
     const serializedItems = JSON.stringify(items);
     window.localStorage.setItem('tasks', serializedItems);
