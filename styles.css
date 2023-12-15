@@ -34,15 +34,22 @@ h1 {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-#list div {
+.item {
     padding: 16pt;
     background: #f3f3f3;
     margin-bottom: 8pt;
     border-radius: 8pt;
 }
 
-#list div span {
+.flex {
+    display: flex;
+    gap: 4pt;
+}
+
+.flex span {
     font-size: 17pt;
+    overflow-wrap: break-word;
+    hyphens: manual;
 }
 
 input {

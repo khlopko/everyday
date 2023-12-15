@@ -10,10 +10,13 @@ function createList() {
     }
     items.forEach(function (item) {
         var div = document.createElement('div');
-        div.className = item.isDone ? 'faded' : '';
-        div.appendChild(doneButton(item));
-        div.appendChild(taskBody(item));
-        div.appendChild(removeButton(item));
+        div.className = 'item' + (item.isDone ? ' faded' : '');
+        var divWrapper = document.createElement('div');
+        divWrapper.className = 'flex';
+        div.appendChild(divWrapper);
+        divWrapper.appendChild(doneButton(item));
+        divWrapper.appendChild(taskBody(item));
+        divWrapper.appendChild(removeButton(item));
         parent.appendChild(div);
     });
 }
