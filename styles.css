@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
 html {
     margin: 0;
     padding: 16pt;
@@ -22,7 +24,8 @@ body {
 }
 
 h1 {
-    font-size: 42pt;
+    font-family: 'Dancing Script', cursive;
+    font-size: 21pt;
     text-align: center;
 }
 
@@ -90,7 +93,7 @@ button:hover {
 }
 
 .primary {
-    color: blue;
+    color: #625bc5;
 }
 
 .remove {
