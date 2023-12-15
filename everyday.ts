@@ -52,6 +52,7 @@ function removeButton(item: TaskItem): HTMLElement {
 
 function noTasksElement(): HTMLElement {
     const div = document.createElement('div');
+    div.className = 'item';
     const text = document.createElement('span');
     text.innerHTML = 'No tasks';
     div.appendChild(text);

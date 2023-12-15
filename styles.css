@@ -27,7 +27,7 @@ h1 {
 }
 
 #list {
-    margin-bottom: 32pt;
+    margin-top: 16pt;
 }
 
 #list * {
@@ -44,6 +44,10 @@ h1 {
 .flex {
     display: flex;
     gap: 4pt;
+}
+
+.flex-end {
+    justify-content: flex-end;
 }
 
 .flex span {
@@ -73,6 +77,12 @@ button {
 
 button:hover {
     text-decoration: underline;
+}
+
+#delete-all {
+    margin-top: 16pt;
+    margin-bottom: 32pt;
+    padding-right: 16pt;
 }
 
 .done {

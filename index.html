@@ -7,10 +7,16 @@
 
 <body>
     <h1>Everyday</h1>
+
+    <button onclick="reset()">undo all</button>
+
     <div id="list"></div>
-    <input type=text id="task-input" placeholder="Type a new task here..."  />
-    <button onclick="reset()">Undo All</button>
-    <button onclick="clearAll()" class="remove">Delete All</button>
+    
+    <div class="flex flex-end">
+        <button onclick="clearAll()" class="remove" id="delete-all">remove all</button>
+    </div>
+
+    <input type=text id="task-input" placeholder="Type a new task here..." />
 
     <script src=everyday.js></script>
 </body>
