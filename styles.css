@@ -50,6 +50,7 @@ h1 {
     font-size: 17pt;
     overflow-wrap: break-word;
     hyphens: manual;
+    flex-grow: 1;
 }
 
 input {
