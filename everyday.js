@@ -86,6 +86,14 @@ function deleteItem(id) {
     var updatedItems = load().filter(function (item) { return item.id !== id; });
     update(updatedItems);
 }
+function reset() {
+    var updatedItems = load().map(function (item) {
+        item.isDone = false;
+        return item;
+    });
+    update(updatedItems);
+    createList();
+}
 function update(items) {
     var serializedItems = JSON.stringify(items);
     window.localStorage.setItem('tasks', serializedItems);

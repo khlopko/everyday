@@ -102,6 +102,15 @@ function deleteItem(id: string) {
     update(updatedItems);
 }
 
+function reset() {
+    const updatedItems = load().map(item => {
+        item.isDone = false;
+        return item;
+    });
+    update(updatedItems);
+    createList();
+}
+
 function update(items: TaskItem[]) {
     const serializedItems = JSON.stringify(items);
     window.localStorage.setItem('tasks', serializedItems);
