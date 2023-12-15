@@ -1,6 +1,7 @@
 html {
     margin: 0;
     padding: 16pt;
+    font-family: sans-serif;
 }
 
 body {
@@ -20,8 +21,17 @@ body {
     }
 }
 
+h1 {
+    font-size: 42pt;
+    text-align: center;
+}
+
 #list {
-    margin-top: 16pt;
+    margin-top: 32pt;
+}
+
+#list * {
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #list div {
@@ -37,14 +47,16 @@ body {
 
 input {
     width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 14pt;
-    padding: 8pt;
+    padding: 16pt;
     margin-bottom: 8pt;
     border-radius: 8pt;
     border-style: solid;
 }
 
 button {
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 14pt;
     background: none;
     border: none;
