@@ -33,7 +33,7 @@ function doneButton(item) {
 function taskBody(item) {
     var text = document.createElement('span');
     text.innerHTML = item.name;
-    text.className = item.isDone ? 'done' : '';
+    text.className = 'task-body' + (item.isDone ? 'done' : '');
     return text;
 }
 function removeButton(item) {
@@ -74,6 +74,57 @@ function addListener() {
 }
 function getInputElement() {
     return document.getElementById('task-input');
+}
+function onLoad() {
+    autoResetInitialConfig();
+    updateAutoResetButton();
+    refreshItemsIfNewDay();
+    recordVisit();
+}
+function updateAutoResetButton() {
+    var autoResetElement = document.getElementById('auto-reset');
+    if (!autoResetElement) {
+        return;
+    }
+    var existingChild = autoResetElement.firstChild;
+    if (existingChild) {
+        autoResetElement.removeChild(existingChild);
+    }
+    autoResetElement.className = autoResetEnabled() ? 'green' : 'red';
+    var textParent = document.createElement('b');
+    textParent.innerText = autoResetEnabled() ? 'on' : 'off';
+    autoResetElement.appendChild(textParent);
+}
+function lastVisit() {
+    return new Date(window.localStorage.getItem('last-visit') || '');
+}
+function recordVisit() {
+    window.localStorage.setItem('last-visit', new Date().toISOString());
+}
+function autoResetInitialConfig() {
+    var autoResetValue = window.localStorage.getItem('auto-reset');
+    if (autoResetValue === null || autoResetValue === '') {
+        window.localStorage.setItem('auto-reset', 'true');
+    }
+}
+function autoResetEnabled() {
+    return window.localStorage.getItem('auto-reset') === 'true';
+}
+function toggleAutoReset() {
+    var isEnabled = autoResetEnabled();
+    window.localStorage.setItem('auto-reset', isEnabled ? 'false' : 'true');
+    updateAutoResetButton();
+}
+function refreshItemsIfNewDay() {
+    if (!autoResetEnabled()) {
+        return;
+    }
+    var lastVisitDate = lastVisit().getDate();
+    var today = new Date().getDate();
+    if (lastVisitDate !== today) {
+        reset();
+        recordVisit();
+    }
 }
 function load() {
     var serializedItems = window.localStorage.getItem('tasks') || '[]';
@@ -119,4 +170,5 @@ function update(items) {
     window.localStorage.setItem('tasks', serializedItems);
 }
 addListener();
+onLoad();
 createList();

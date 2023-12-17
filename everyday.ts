@@ -1,5 +1,4 @@
-function createList() {
-    const parent = document.getElementById('list');
+function createList() { const parent = document.getElementById('list');
     if (!parent) {
         return;
     }
@@ -35,7 +34,7 @@ function doneButton(item: TaskItem): HTMLElement {
 function taskBody(item: TaskItem): HTMLElement {
     const text = document.createElement('span');
     text.innerHTML = item.name;
-    text.className = item.isDone ? 'done' : '';
+    text.className = 'task-body' + (item.isDone ? 'done' : '');
     return text;
 }
 
@@ -83,11 +82,70 @@ function getInputElement() {
     return document.getElementById('task-input') as HTMLInputElement;
 }
 
+function onLoad() {
+    autoResetInitialConfig();
+    updateAutoResetButton();
+    refreshItemsIfNewDay();
+    recordVisit();
+}
+
+function updateAutoResetButton() {
+    const autoResetElement = document.getElementById('auto-reset');
+    if (!autoResetElement) {
+        return;
+    }
+    const existingChild = autoResetElement.firstChild;
+    if (existingChild) {
+        autoResetElement.removeChild(existingChild);
+    }
+    autoResetElement.className = autoResetEnabled() ? 'green' : 'red';
+    const textParent = document.createElement('b');
+    textParent.innerText = autoResetEnabled() ? 'on' : 'off';
+    autoResetElement.appendChild(textParent);
+}
+
 type TaskItem = {
     id: string,
     name: string,
     isDone: boolean,
 };
+
+function lastVisit(): Date {
+    return new Date(window.localStorage.getItem('last-visit') || '');
+}
+
+function recordVisit() {
+    window.localStorage.setItem('last-visit', new Date().toISOString());
+}
+
+function autoResetInitialConfig() {
+    const autoResetValue = window.localStorage.getItem('auto-reset');
+    if (autoResetValue === null || autoResetValue === '') {
+        window.localStorage.setItem('auto-reset', 'true');
+    }
+}
+
+function autoResetEnabled(): boolean {
+    return window.localStorage.getItem('auto-reset') === 'true';
+}
+
+function toggleAutoReset() {
+    const isEnabled = autoResetEnabled();
+    window.localStorage.setItem('auto-reset', isEnabled ? 'false' : 'true');
+    updateAutoResetButton();
+}
+
+function refreshItemsIfNewDay() {
+    if (!autoResetEnabled()) {
+        return;
+    }
+    const lastVisitDate = lastVisit().getDate();
+    const today = new Date().getDate();
+    if (lastVisitDate !== today) {
+        reset();
+        recordVisit();
+    }
+}
 
 function load(): TaskItem[] {
     const serializedItems = window.localStorage.getItem('tasks') || '[]';
@@ -140,4 +198,5 @@ function update(items: TaskItem[]) {
 }
 
 addListener();
+onLoad();
 createList();

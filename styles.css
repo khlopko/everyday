@@ -50,6 +50,10 @@ h1 {
     gap: 4pt;
 }
 
+.flex-start {
+    justify-content: start;
+}
+
 .flex-end {
     justify-content: flex-end;
 }
@@ -58,17 +62,28 @@ h1 {
     font-size: 17pt;
     overflow-wrap: break-word;
     hyphens: manual;
+}
+
+.task-body {
     flex-grow: 1;
 }
 
-input {
-    width: 100%;
+input[type='text'] {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 14pt;
     padding: 16pt;
     margin-bottom: 8pt;
     border-radius: 8pt;
     border-style: solid;
+}
+
+label {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14pt;
+}
+
+#task-input {
+    width: 100%;
 }
 
 button {
@@ -103,4 +118,8 @@ button:hover {
 
 .faded {
     opacity: 0.5;
+}
+
+.green {
+    color: green;
 }

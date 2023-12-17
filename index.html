@@ -9,7 +9,12 @@
 <body>
     <h1>Everyday</h1>
 
-    <button onclick="reset()">undo all</button>
+    <div class="flex">
+        <label>auto-undo:</label>
+        <button onclick="toggleAutoReset()" id="auto-reset"></button>
+        <span>|</span>
+        <button onclick="reset()">undo all</button>
+    </div>
 
     <div id="list"></div>
 
