@@ -33,7 +33,7 @@ function doneButton(item) {
 function taskBody(item) {
     var text = document.createElement('span');
     text.innerHTML = item.name;
-    text.className = 'task-body' + (item.isDone ? 'done' : '');
+    text.className = 'task-body ' + (item.isDone ? 'done' : '');
     return text;
 }
 function removeButton(item) {

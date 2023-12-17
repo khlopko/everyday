@@ -34,7 +34,7 @@ function doneButton(item: TaskItem): HTMLElement {
 function taskBody(item: TaskItem): HTMLElement {
     const text = document.createElement('span');
     text.innerHTML = item.name;
-    text.className = 'task-body' + (item.isDone ? 'done' : '');
+    text.className = 'task-body ' + (item.isDone ? 'done' : '');
     return text;
 }
 
