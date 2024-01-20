@@ -1,28 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
-html {
-    margin: 0;
-    padding: 16pt;
-    font-family: sans-serif;
-    font-size: 1em;
-}
-
-body {
-    width: 45%;
-    margin: auto;
-}
-
-@media (max-width: 1200px) {
-    body {
-        width: 75%;
-    }
-}
-
-@media (max-width: 800px) {
-    body {
-        width: 100%;
-    }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 h1 {
     font-family: 'Dancing Script', cursive;
@@ -40,32 +20,14 @@ h1 {
 
 .item {
     padding: 16pt;
-    background: #f3f3f3;
     margin-bottom: 8pt;
     border-radius: 8pt;
 }
 
-.flex {
-    display: flex;
-    gap: 4pt;
-}
-
-.flex-start {
-    justify-content: start;
-}
-
-.flex-end {
-    justify-content: flex-end;
-}
-
-.flex span {
+.item .body {
     font-size: 17pt;
     overflow-wrap: break-word;
     hyphens: manual;
-}
-
-.task-body {
-    flex-grow: 1;
 }
 
 input[type='text'] {
@@ -80,10 +42,6 @@ input[type='text'] {
 label {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 14pt;
-}
-
-#task-input {
-    width: 100%;
 }
 
 button {

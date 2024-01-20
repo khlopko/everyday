@@ -104,9 +104,9 @@ function createList() { const parent = document.getElementById('list');
     }
     items.forEach((item) => {
         const div = document.createElement('div');
-        div.className = 'item' + (item.isDone ? ' faded' : '');
+        div.className = 'bg-slate-300 dark:bg-slate-900 item' + (item.isDone ? ' faded' : '');
         const divWrapper = document.createElement('div');
-        divWrapper.className = 'flex';
+        divWrapper.className = 'flex flex-row gap-3 max-sm:flex-col max-sm:items-start';
         div.appendChild(divWrapper);
         divWrapper.appendChild(doneButton(item));
         divWrapper.appendChild(taskBody(item));
@@ -118,7 +118,7 @@ function createList() { const parent = document.getElementById('list');
 function doneButton(item: TaskItem): HTMLElement {
     const done = document.createElement('button');
     done.innerHTML = item.isDone ? 'undo' : 'done';
-    done.className = 'primary' + (item.isDone ? ' done' : '');
+    done.className = 'flex-none primary' + (item.isDone ? ' done' : '');
     done.onclick = () => {
         toggle(item.id);
         createList();
@@ -127,15 +127,15 @@ function doneButton(item: TaskItem): HTMLElement {
 }
 
 function taskBody(item: TaskItem): HTMLElement {
-    const text = document.createElement('span');
+    const text = document.createElement('div');
     text.innerHTML = item.name;
-    text.className = 'task-body ' + (item.isDone ? 'done' : '');
+    text.className = 'grow body' + (item.isDone ? ' done' : '');
     return text;
 }
 
 function removeButton(item: TaskItem): HTMLElement {
     const remove = document.createElement('button');
-    remove.className = 'remove';
+    remove.className = 'flex-none remove';
     remove.innerHTML = 'remove';
     remove.onclick = () => {
         deleteItem(item.id);

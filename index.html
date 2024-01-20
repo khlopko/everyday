@@ -2,27 +2,29 @@
 
 <head>
     <title>Everyday</title>
-    <link rel="stylesheet" href="styles.css">
+    <link href="./output.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
-    <h1>Everyday</h1>
+<body class="bg-white dark:bg-slate-800 text-black dark:text-white">
+    <div class="bg-white dark:bg-slate-800 container sm px-4 mx-auto">
+        <h1>Everyday</h1>
 
-    <div class="flex">
-        <label>auto-undo:</label>
-        <button onclick="toggleAutoReset()" id="auto-reset"></button>
-        <span>|</span>
-        <button onclick="reset()">undo all</button>
+        <div class="flex gap-3">
+            <label>auto-undo:</label>
+            <button onclick="toggleAutoReset()" id="auto-reset"></button>
+            <span>|</span>
+            <button onclick="reset()">undo all</button>
+        </div>
+
+        <div class="flex flex-col" id="list"></div>
+
+        <div class="flex flex-row-reverse">
+            <button onclick="clearAll()" class="remove" id="delete-all">remove all</button>
+        </div>
+
+        <input class="bg-slate-100 dark:bg-slate-700 w-full" type=text id="task-input" placeholder="Type a new task here..." />
     </div>
-
-    <div id="list"></div>
-
-    <div class="flex flex-end">
-        <button onclick="clearAll()" class="remove" id="delete-all">remove all</button>
-    </div>
-
-    <input type=text id="task-input" placeholder="Type a new task here..." />
 
     <script src=everyday.js></script>
 </body>
