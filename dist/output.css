@@ -550,6 +550,24 @@ video {
   width: 100%;
 }
 
+@media (min-width: 240px){
+  .container{
+    max-width: 240px;
+  }
+}
+
+@media (min-width: 320px){
+  .container{
+    max-width: 320px;
+  }
+}
+
+@media (min-width: 480px){
+  .container{
+    max-width: 480px;
+  }
+}
+
 @media (min-width: 640px){
   .container{
     max-width: 640px;
@@ -559,24 +577,6 @@ video {
 @media (min-width: 768px){
   .container{
     max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px){
-  .container{
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px){
-  .container{
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px){
-  .container{
-    max-width: 1536px;
   }
 }
 
@@ -1927,11 +1927,6 @@ video {
      object-fit: scale-down;
 }
 
-.px-4{
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
 .text-left{
   text-align: left;
 }
@@ -2478,9 +2473,27 @@ button:hover {
   color: green;
 }
 
-@media (min-width: 640px){
+@media (min-width: 240px){
   .sm\:container{
     width: 100%;
+  }
+
+  @media (min-width: 240px){
+    .sm\:container{
+      max-width: 240px;
+    }
+  }
+
+  @media (min-width: 320px){
+    .sm\:container{
+      max-width: 320px;
+    }
+  }
+
+  @media (min-width: 480px){
+    .sm\:container{
+      max-width: 480px;
+    }
   }
 
   @media (min-width: 640px){
@@ -2492,24 +2505,6 @@ button:hover {
   @media (min-width: 768px){
     .sm\:container{
       max-width: 768px;
-    }
-  }
-
-  @media (min-width: 1024px){
-    .sm\:container{
-      max-width: 1024px;
-    }
-  }
-
-  @media (min-width: 1280px){
-    .sm\:container{
-      max-width: 1280px;
-    }
-  }
-
-  @media (min-width: 1536px){
-    .sm\:container{
-      max-width: 1536px;
     }
   }
 }
@@ -2536,7 +2531,7 @@ button:hover {
   text-align: center;
 }
 
-@media not all and (min-width: 640px){
+@media not all and (min-width: 240px){
   .max-sm\:flex-col{
     flex-direction: column;
   }
@@ -2544,9 +2539,14 @@ button:hover {
   .max-sm\:items-start{
     align-items: flex-start;
   }
+
+  .max-sm\:px-4{
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
-@media (min-width: 640px){
+@media (min-width: 240px){
   .sm\:underline{
     text-decoration-line: underline;
   }
@@ -2573,7 +2573,7 @@ button:hover {
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 
-  @media (min-width: 1024px){
+  @media (min-width: 480px){
     .dark\:lg\:hover\:\[paint-order\:markers\]:hover{
       paint-order: markers;
     }
