@@ -72,6 +72,22 @@ function update(items) {
     var serializedItems = JSON.stringify(items);
     window.localStorage.setItem('tasks', serializedItems);
 }
+function toggleLimit() {
+    var limit = getLimit();
+    if (!limit) {
+        window.localStorage.setItem('tasks-limit', '5');
+    }
+    else {
+        window.localStorage.removeItem('tasks-limit');
+    }
+}
+function getLimit() {
+    var raw = window.localStorage.getItem('tasks-limit');
+    if (!raw) {
+        return null;
+    }
+    return parseInt(raw);
+}
 // MARK: - UI
 function createList() {
     var parent = document.getElementById('list');
@@ -94,6 +110,7 @@ function createList() {
         divWrapper.appendChild(removeButton(item));
         parent.appendChild(div);
     });
+    updateInputAvailability(items.length, getLimit());
 }
 function doneButton(item) {
     var done = document.createElement('button');
@@ -138,7 +155,7 @@ function updateAutoResetButton() {
     if (existingChild) {
         autoResetElement.removeChild(existingChild);
     }
-    autoResetElement.className = autoResetEnabled() ? 'green' : 'red';
+    autoResetElement.className = autoResetEnabled() ? 'text-lime-600' : 'red';
     var textParent = document.createElement('b');
     textParent.innerText = autoResetEnabled() ? 'on' : 'off';
     autoResetElement.appendChild(textParent);
@@ -165,11 +182,62 @@ function addListener() {
         }
     });
 }
+function toggleLimitAction() {
+    toggleLimit();
+    updateLimitUI();
+}
+function updateLimitUI() {
+    var _a, _b, _c, _d, _e;
+    var btn = document.getElementById('limit-tgl');
+    var limit = getLimit();
+    limit = updateInputAvailability(load().length, limit);
+    if (limit) {
+        btn.innerText = '';
+        btn.className = 'text-white';
+        var input = document.getElementById('limit-input');
+        if (!input) {
+            input = document.createElement('input');
+            input.id = 'limit-input';
+            input.className = 'bg-lime-600 w-8 rounded px-2';
+            input.onchange = function (e) {
+                var newLimit = parseInt(e.target.value) || '5';
+                window.localStorage.setItem('tasks-limit', newLimit.toString());
+                updateLimitUI();
+            };
+        }
+        input.value = limit.toString();
+        (_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.appendChild(input);
+        if (!document.getElementById('limit-off')) {
+            var off = document.createElement('button');
+            off.className = 'text-lime-600 font-bold';
+            off.innerText = 'on';
+            off.onclick = function (_) { toggleLimitAction(); };
+            (_b = btn.parentElement) === null || _b === void 0 ? void 0 : _b.appendChild(off);
+        }
+    }
+    else {
+        btn.innerText = 'off';
+        btn.className = '';
+        while ((((_c = btn.parentElement) === null || _c === void 0 ? void 0 : _c.childElementCount) || 0) > 2) {
+            (_e = (_d = btn.parentElement) === null || _d === void 0 ? void 0 : _d.lastChild) === null || _e === void 0 ? void 0 : _e.remove();
+        }
+    }
+}
+function updateInputAvailability(existingTasks, limit) {
+    if (!limit) {
+        return null;
+    }
+    var finalLimit = existingTasks <= limit ? limit : existingTasks;
+    var mainInput = document.getElementById('task-input');
+    mainInput.disabled = existingTasks >= finalLimit;
+    return finalLimit;
+}
 function onLoad() {
     autoResetInitialConfig();
     updateAutoResetButton();
     refreshItemsIfNewDay();
     recordVisit();
+    updateLimitUI();
 }
 addListener();
 onLoad();
