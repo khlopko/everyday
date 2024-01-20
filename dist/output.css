@@ -550,18 +550,6 @@ video {
   width: 100%;
 }
 
-@media (min-width: 240px){
-  .container{
-    max-width: 240px;
-  }
-}
-
-@media (min-width: 320px){
-  .container{
-    max-width: 320px;
-  }
-}
-
 @media (min-width: 480px){
   .container{
     max-width: 480px;
@@ -2473,21 +2461,9 @@ button:hover {
   color: green;
 }
 
-@media (min-width: 240px){
+@media (min-width: 480px){
   .sm\:container{
     width: 100%;
-  }
-
-  @media (min-width: 240px){
-    .sm\:container{
-      max-width: 240px;
-    }
-  }
-
-  @media (min-width: 320px){
-    .sm\:container{
-      max-width: 320px;
-    }
   }
 
   @media (min-width: 480px){
@@ -2531,7 +2507,7 @@ button:hover {
   text-align: center;
 }
 
-@media not all and (min-width: 480px){
+@media not all and (min-width: 768px){
   .max-lg\:flex-col{
     flex-direction: column;
   }
@@ -2541,50 +2517,20 @@ button:hover {
   }
 }
 
-@media not all and (min-width: 320px){
-  .max-md\:flex-col{
-    flex-direction: column;
-  }
-
-  .max-md\:items-start{
-    align-items: flex-start;
-  }
-}
-
-@media not all and (min-width: 240px){
+@media not all and (min-width: 480px){
   .max-sm\:flex-col{
     flex-direction: column;
   }
 
-  .max-sm\:items-start{
-    align-items: flex-start;
-  }
-
-  .max-sm\:px-4{
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
-
-@media (min-width: 240px){
-  .sm\:underline{
-    text-decoration-line: underline;
-  }
-}
-
-@media (min-width: 320px){
-  .md\:flex-col{
-    flex-direction: column;
-  }
-
-  .md\:items-start{
-    align-items: flex-start;
+  .max-sm\:px-2{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 }
 
 @media (min-width: 480px){
-  .lg\:flex-col{
-    flex-direction: column;
+  .sm\:underline{
+    text-decoration-line: underline;
   }
 }
 
@@ -2604,17 +2550,12 @@ button:hover {
     background-color: rgb(15 23 42 / var(--tw-bg-opacity));
   }
 
-  .dark\:bg-slate-950{
-    --tw-bg-opacity: 1;
-    background-color: rgb(2 6 23 / var(--tw-bg-opacity));
-  }
-
   .dark\:text-white{
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 
-  @media (min-width: 480px){
+  @media (min-width: 768px){
     .dark\:lg\:hover\:\[paint-order\:markers\]:hover{
       paint-order: markers;
     }
