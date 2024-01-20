@@ -106,7 +106,7 @@ function createList() { const parent = document.getElementById('list');
         const div = document.createElement('div');
         div.className = 'bg-slate-300 dark:bg-slate-900 item' + (item.isDone ? ' faded' : '');
         const divWrapper = document.createElement('div');
-        divWrapper.className = 'flex flex-row gap-3 max-sm:flex-col max-sm:items-start';
+        divWrapper.className = 'flex flex-row gap-3 max-lg:flex-col max-lg:items-start';
         div.appendChild(divWrapper);
         divWrapper.appendChild(doneButton(item));
         divWrapper.appendChild(taskBody(item));

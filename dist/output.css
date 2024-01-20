@@ -2531,6 +2531,26 @@ button:hover {
   text-align: center;
 }
 
+@media not all and (min-width: 480px){
+  .max-lg\:flex-col{
+    flex-direction: column;
+  }
+
+  .max-lg\:items-start{
+    align-items: flex-start;
+  }
+}
+
+@media not all and (min-width: 320px){
+  .max-md\:flex-col{
+    flex-direction: column;
+  }
+
+  .max-md\:items-start{
+    align-items: flex-start;
+  }
+}
+
 @media not all and (min-width: 240px){
   .max-sm\:flex-col{
     flex-direction: column;
@@ -2552,6 +2572,22 @@ button:hover {
   }
 }
 
+@media (min-width: 320px){
+  .md\:flex-col{
+    flex-direction: column;
+  }
+
+  .md\:items-start{
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 480px){
+  .lg\:flex-col{
+    flex-direction: column;
+  }
+}
+
 @media (prefers-color-scheme: dark){
   .dark\:bg-slate-700{
     --tw-bg-opacity: 1;
@@ -2566,6 +2602,11 @@ button:hover {
   .dark\:bg-slate-900{
     --tw-bg-opacity: 1;
     background-color: rgb(15 23 42 / var(--tw-bg-opacity));
+  }
+
+  .dark\:bg-slate-950{
+    --tw-bg-opacity: 1;
+    background-color: rgb(2 6 23 / var(--tw-bg-opacity));
   }
 
   .dark\:text-white{
