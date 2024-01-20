@@ -85,7 +85,7 @@ function createList() {
     }
     items.forEach(function (item) {
         var div = document.createElement('div');
-        div.className = 'bg-slate-300 dark:bg-slate-900 item' + (item.isDone ? ' faded' : '');
+        div.className = 'bg-slate-200 dark:bg-slate-900 item' + (item.isDone ? ' faded' : '');
         var divWrapper = document.createElement('div');
         divWrapper.className = 'flex flex-row gap-3 max-lg:flex-col max-lg:items-start';
         div.appendChild(divWrapper);
