@@ -187,7 +187,7 @@ function toggleLimitAction() {
     updateLimitUI();
 }
 function updateLimitUI() {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d;
     var btn = document.getElementById('limit-tgl');
     var limit = getLimit();
     limit = updateInputAvailability(load().length, limit);
@@ -201,17 +201,13 @@ function updateLimitUI() {
     }
     btn.innerText = '';
     btn.className = 'text-white';
-    var input = document.getElementById('limit-input');
-    if (!input) {
-        input = createLimitInput();
-    }
+    var input = document.getElementById('limit-input') || makeLimitInput(btn.parentElement);
     input.value = limit.toString();
-    (_d = btn.parentElement) === null || _d === void 0 ? void 0 : _d.appendChild(input);
     if (!document.getElementById('limit-off')) {
-        (_e = btn.parentElement) === null || _e === void 0 ? void 0 : _e.appendChild(off);
+        (_d = btn.parentElement) === null || _d === void 0 ? void 0 : _d.appendChild(makeOffLimitButton());
     }
 }
-function createLimitInput() {
+function makeLimitInput(parent) {
     var input = document.createElement('input');
     input.id = 'limit-input';
     input.className = 'bg-lime-600 w-8 rounded px-2';
@@ -220,14 +216,23 @@ function createLimitInput() {
         window.localStorage.setItem('tasks-limit', newLimit.toString());
         updateLimitUI();
     };
+    parent === null || parent === void 0 ? void 0 : parent.appendChild(input);
     return input;
 }
+function makeOffLimitButton() {
+    var off = document.createElement('button');
+    off.className = 'text-lime-600 font-bold';
+    off.innerText = 'on';
+    off.onclick = function (_) { toggleLimitAction(); };
+    return off;
+}
 function updateInputAvailability(existingTasks, limit) {
+    var mainInput = document.getElementById('task-input');
     if (!limit) {
+        mainInput.disabled = false;
         return null;
     }
     var finalLimit = existingTasks <= limit ? limit : existingTasks;
-    var mainInput = document.getElementById('task-input');
     mainInput.disabled = existingTasks >= finalLimit;
     return finalLimit;
 }
