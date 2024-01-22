@@ -191,37 +191,36 @@ function updateLimitUI() {
     var btn = document.getElementById('limit-tgl');
     var limit = getLimit();
     limit = updateInputAvailability(load().length, limit);
-    if (limit) {
-        btn.innerText = '';
-        btn.className = 'text-white';
-        var input = document.getElementById('limit-input');
-        if (!input) {
-            input = document.createElement('input');
-            input.id = 'limit-input';
-            input.className = 'bg-lime-600 w-8 rounded px-2';
-            input.onchange = function (e) {
-                var newLimit = parseInt(e.target.value) || '5';
-                window.localStorage.setItem('tasks-limit', newLimit.toString());
-                updateLimitUI();
-            };
-        }
-        input.value = limit.toString();
-        (_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.appendChild(input);
-        if (!document.getElementById('limit-off')) {
-            var off = document.createElement('button');
-            off.className = 'text-lime-600 font-bold';
-            off.innerText = 'on';
-            off.onclick = function (_) { toggleLimitAction(); };
-            (_b = btn.parentElement) === null || _b === void 0 ? void 0 : _b.appendChild(off);
-        }
-    }
-    else {
+    if (!limit) {
         btn.innerText = 'off';
         btn.className = '';
-        while ((((_c = btn.parentElement) === null || _c === void 0 ? void 0 : _c.childElementCount) || 0) > 2) {
-            (_e = (_d = btn.parentElement) === null || _d === void 0 ? void 0 : _d.lastChild) === null || _e === void 0 ? void 0 : _e.remove();
+        while ((((_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.childElementCount) || 0) > 2) {
+            (_c = (_b = btn.parentElement) === null || _b === void 0 ? void 0 : _b.lastChild) === null || _c === void 0 ? void 0 : _c.remove();
         }
+        return;
     }
+    btn.innerText = '';
+    btn.className = 'text-white';
+    var input = document.getElementById('limit-input');
+    if (!input) {
+        input = createLimitInput();
+    }
+    input.value = limit.toString();
+    (_d = btn.parentElement) === null || _d === void 0 ? void 0 : _d.appendChild(input);
+    if (!document.getElementById('limit-off')) {
+        (_e = btn.parentElement) === null || _e === void 0 ? void 0 : _e.appendChild(off);
+    }
+}
+function createLimitInput() {
+    var input = document.createElement('input');
+    input.id = 'limit-input';
+    input.className = 'bg-lime-600 w-8 rounded px-2';
+    input.onchange = function (e) {
+        var newLimit = parseInt(e.target.value) || '5';
+        window.localStorage.setItem('tasks-limit', newLimit.toString());
+        updateLimitUI();
+    };
+    return input;
 }
 function updateInputAvailability(existingTasks, limit) {
     if (!limit) {

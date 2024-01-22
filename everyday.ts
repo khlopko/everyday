@@ -222,44 +222,51 @@ function updateLimitUI() {
     const btn = document.getElementById('limit-tgl') as HTMLButtonElement;
     let limit = getLimit();
     limit = updateInputAvailability(load().length, limit);
-    if (limit) {
-        btn.innerText = '';
-        btn.className = 'text-white';
-        let input = document.getElementById('limit-input') as HTMLInputElement | null;
-        if (!input) {
-            input = document.createElement('input') as HTMLInputElement;
-            input.id = 'limit-input';
-            input.className = 'bg-lime-600 w-8 rounded px-2';
-            input.onchange = (e: Event) => {
-                const newLimit = parseInt(e.target.value) || '5';
-                window.localStorage.setItem('tasks-limit', newLimit.toString());
-                updateLimitUI();
-            };
-        }
-        input.value = limit.toString();
-        btn.parentElement?.appendChild(input);
-        if (!document.getElementById('limit-off')) {
-            const off = document.createElement('button') as HTMLButtonElement;
-            off.className = 'text-lime-600 font-bold';
-            off.innerText = 'on';
-            off.onclick = (_: Event) => { toggleLimitAction(); };
-            btn.parentElement?.appendChild(off);
-        }
-    } else {
+    if (!limit) {
         btn.innerText = 'off';
         btn.className = '';
         while ((btn.parentElement?.childElementCount || 0) > 2) {
             btn.parentElement?.lastChild?.remove();
         }
+        return;
+    }
+    btn.innerText = '';
+    btn.className = 'text-white';
+    const input = document.getElementById('limit-input') as HTMLInputElement || makeLimitInput(btn.parentElement);
+    input.value = limit.toString();
+    if (!document.getElementById('limit-off')) {
+        btn.parentElement?.appendChild(makeOffLimitButton());
     }
 }
 
+function makeLimitInput(parent: HTMLElement | null): HTMLInputElement {
+    const input = document.createElement('input') as HTMLInputElement;
+    input.id = 'limit-input';
+    input.className = 'bg-lime-600 w-8 rounded px-2';
+    input.onchange = (e: Event) => {
+        const newLimit = parseInt(e.target.value) || '5';
+        window.localStorage.setItem('tasks-limit', newLimit.toString());
+        updateLimitUI();
+    };
+    parent?.appendChild(input);
+    return input;
+}
+
+function makeOffLimitButton(): HTMLButtonElement {
+    const off = document.createElement('button') as HTMLButtonElement;
+    off.className = 'text-lime-600 font-bold';
+    off.innerText = 'on';
+    off.onclick = (_: Event) => { toggleLimitAction(); };
+    return off;
+}
+
 function updateInputAvailability(existingTasks: number, limit: number | null): number | null {
+    const mainInput = document.getElementById('task-input') as HTMLInputElement;
     if (!limit) {
+        mainInput.disabled = false;
         return null;
     }
     const finalLimit = existingTasks <= limit ? limit : existingTasks;
-    const mainInput = document.getElementById('task-input') as HTMLInputElement;
     mainInput.disabled = existingTasks >= finalLimit;
     return finalLimit;
 }
