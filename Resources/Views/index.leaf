@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Everyday</title>
-    <link href="./output.css" rel="stylesheet">
+    <link href="output.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -18,15 +18,15 @@
             <div class="flex flex-row gap-3 max-sm:gap-2">
                 <div class="flex flex-row gap-3 max-sm:gap-2">
                     <label>auto-undo:</label>
-                    <button onclick="toggleAutoReset()" id="auto-reset"></button>
+                    <button id="auto-reset"></button>
                     <span>|</span>
                 </div>
-                <button onclick="reset()">undo all</button>
+                <button id="undo-all">undo all</button>
             </div>
 
             <div class="flex flex-row justify-self-end gap-2">
                 <label>limit:</label>
-                <button onclick="toggleLimitAction()" id="limit-tgl"></button>
+                <button id="limit-tgl"></button>
             </div>
 
         </div>
@@ -34,8 +34,8 @@
         <div class="flex flex-col" id="list"></div>
 
         <div class="flex flex-row justify-between items-baseline">
-            <button onclick=""><span class="text-slate-400">backlog &darr;</span></button>
-            <button onclick="clearAll()" class="remove" id="delete-all">remove all</button>
+            <button id="toggle-backlog"><span class="text-slate-400">backlog &darr;</span></button>
+            <button class="remove" id="delete-all">remove all</button>
         </div>
 
         <input class="bg-slate-100 dark:bg-slate-700 w-full" type=text id="task-input"
@@ -45,7 +45,27 @@
             Made by <a href="" class="underline">Kyrylo Khlopko</a>
         </div>
 
-        <script src=everyday.js></script>
+        <script type="module">
+            import * as everyday from './everyday.js';
+
+            const uiActions = new everyday.UIActions();
+            uiActions.init();
+
+            window.addEventListener('DOMContentLoaded', () => {
+                document
+                    .getElementById("auto-reset")
+                    .addEventListener('click', () => uiActions.toggleAutoReset());
+                document
+                    .getElementById("undo-all")
+                    .addEventListener('click', () => uiActions.reset());
+                document
+                    .getElementById("limit-tgl")
+                    .addEventListener('click', () => uiActions.toggleLimitAction());
+                document
+                    .getElementById("delete-all")
+                    .addEventListener('click', () => uiActions.clearAll());
+            });
+        </script>
 </body>
 
 </html>

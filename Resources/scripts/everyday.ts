@@ -1,8 +1,13 @@
 import * as tasks from './tasks.js';
+
+
 export class UIActions {
+    private model: tasks.Everyday;
+
     constructor() {
         this.model = new tasks.Everyday();
     }
+
     init() {
         this.addListener();
         this.model.autoResetInitialConfig();
@@ -12,7 +17,8 @@ export class UIActions {
         this.updateLimitUI();
         this.createList();
     }
-    addListener() {
+
+    private addListener() {
         const input = this.getInputElement();
         if (!input) {
             return;
@@ -25,7 +31,8 @@ export class UIActions {
             }
         });
     }
-    refreshItemsIfNewDay() {
+
+    private refreshItemsIfNewDay() {
         if (!this.model.autoResetEnabled()) {
             return;
         }
@@ -36,11 +43,13 @@ export class UIActions {
             this.model.recordVisit();
         }
     }
+
     toggleAutoReset() {
         this.model.toggleAutoReset();
         this.updateAutoResetButton();
     }
-    updateAutoResetButton() {
+
+    private updateAutoResetButton() {
         const autoResetElement = document.getElementById('auto-reset');
         if (!autoResetElement) {
             return;
@@ -54,10 +63,13 @@ export class UIActions {
         textParent.innerText = this.model.autoResetEnabled() ? 'on' : 'off';
         autoResetElement.appendChild(textParent);
     }
+
+
     reset() {
         this.model.reset();
         this.createList();
     }
+
     createList() {
         const parent = document.getElementById('list');
         if (!parent) {
@@ -68,13 +80,14 @@ export class UIActions {
         if (items.length === 0) {
             parent.appendChild(this.noTasksElement());
         }
-        items.forEach((item) => {
+        items.forEach((item: tasks.TaskItem) => {
             const div = this.makeTaskRow(item);
             parent.appendChild(div);
         });
         this.updateInputAvailability(items.length, this.model.getLimit());
     }
-    noTasksElement() {
+
+    noTasksElement(): HTMLElement {
         const div = document.createElement('div');
         div.className = 'item';
         const text = document.createElement('span');
@@ -82,7 +95,8 @@ export class UIActions {
         div.appendChild(text);
         return div;
     }
-    makeTaskRow(item) {
+
+    private makeTaskRow(item: tasks.TaskItem): HTMLElement {
         const div = document.createElement('div');
         div.className = 'bg-slate-200 dark:bg-slate-900 item' + (item.isDone ? ' faded' : '');
         const divWrapper = document.createElement('div');
@@ -93,7 +107,8 @@ export class UIActions {
         divWrapper.appendChild(this.removeButton(item));
         return div;
     }
-    doneButton(item) {
+
+    private doneButton(item: tasks.TaskItem): HTMLElement {
         const done = document.createElement('button');
         done.innerHTML = item.isDone ? 'undo' : 'done';
         done.className = 'flex-none primary' + (item.isDone ? ' done' : '');
@@ -103,13 +118,15 @@ export class UIActions {
         };
         return done;
     }
-    taskBody(item) {
+
+    private taskBody(item: tasks.TaskItem): HTMLElement {
         const text = document.createElement('div');
         text.innerHTML = item.name;
         text.className = 'grow body' + (item.isDone ? ' done' : '');
         return text;
     }
-    removeButton(item) {
+
+    private removeButton(item: tasks.TaskItem): HTMLElement {
         const remove = document.createElement('button');
         remove.className = 'flex-none remove';
         remove.innerHTML = 'remove';
@@ -124,59 +141,65 @@ export class UIActions {
         this.model.create(input.value);
         this.createList();
     }
+
     clearAll() {
         this.model.update([]);
         this.createList();
     }
-    getInputElement() {
-        return document.getElementById('task-input');
+
+    private getInputElement() {
+        return document.getElementById('task-input') as HTMLInputElement;
     }
+
     toggleLimitAction() {
         this.model.toggleLimit();
         this.updateLimitUI();
     }
-    updateLimitUI() {
-        var _a, _b, _c, _d;
-        const btn = document.getElementById('limit-tgl');
+
+    private updateLimitUI() {
+        const btn = document.getElementById('limit-tgl') as HTMLButtonElement;
         let limit = this.model.getLimit();
         limit = this.updateInputAvailability(this.model.load().length, limit);
         if (!limit) {
             btn.innerText = 'off';
             btn.className = '';
-            while ((((_a = btn.parentElement) === null || _a === void 0 ? void 0 : _a.childElementCount) || 0) > 2) {
-                (_c = (_b = btn.parentElement) === null || _b === void 0 ? void 0 : _b.lastChild) === null || _c === void 0 ? void 0 : _c.remove();
+            while ((btn.parentElement?.childElementCount || 0) > 2) {
+                btn.parentElement?.lastChild?.remove();
             }
             return;
         }
         btn.innerText = '';
         btn.className = 'text-white';
-        const input = document.getElementById('limit-input') || this.makeLimitInput(btn.parentElement);
+        const input = document.getElementById('limit-input') as HTMLInputElement || this.makeLimitInput(btn.parentElement);
         input.value = limit.toString();
         if (!document.getElementById('limit-off')) {
-            (_d = btn.parentElement) === null || _d === void 0 ? void 0 : _d.appendChild(this.makeOffLimitButton());
+            btn.parentElement?.appendChild(this.makeOffLimitButton());
         }
     }
-    makeLimitInput(parent) {
-        const input = document.createElement('input');
+
+    private makeLimitInput(parent: HTMLElement | null): HTMLInputElement {
+        const input = document.createElement('input') as HTMLInputElement;
         input.id = 'limit-input';
         input.className = 'bg-lime-600 w-8 rounded px-2';
-        input.onchange = (e) => {
+        input.onchange = (e: Event) => {
             const newLimit = parseInt(e.target.value) || '5';
             window.localStorage.setItem('tasks-limit', newLimit.toString());
             this.updateLimitUI();
         };
-        parent === null || parent === void 0 ? void 0 : parent.appendChild(input);
+        parent?.appendChild(input);
         return input;
     }
-    makeOffLimitButton() {
-        const off = document.createElement('button');
+
+    private makeOffLimitButton(): HTMLButtonElement {
+        const off = document.createElement('button') as HTMLButtonElement;
         off.className = 'text-lime-600 font-bold';
         off.innerText = 'on';
-        off.onclick = (_) => { this.toggleLimitAction(); };
+        off.onclick = (_: Event) => { this.toggleLimitAction(); };
         return off;
     }
-    updateInputAvailability(existingTasks, limit) {
-        const mainInput = document.getElementById('task-input');
+
+    private updateInputAvailability(existingTasks: number, limit: number | null): number | null {
+        const mainInput = document.getElementById('task-input') as HTMLInputElement;
         if (!limit) {
             mainInput.disabled = false;
             return null;
@@ -186,3 +209,4 @@ export class UIActions {
         return finalLimit;
     }
 }
+
