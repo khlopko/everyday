@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Everyday</title>
+    <link href="./output.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="bg-white dark:bg-slate-800 text-black dark:text-white">
+    <div class="bg-white dark:bg-slate-800 container max-sm:px-3 mx-auto">
+        <h1>Everyday</h1>
+        <br />
+
+        <div class="flex flex-row max-sm:flex-col max-sm:gap-3 justify-between px-6 max-sm:px-3">
+
+            <div class="flex flex-row gap-3 max-sm:gap-2">
+                <div class="flex flex-row gap-3 max-sm:gap-2">
+                    <label>auto-undo:</label>
+                    <button onclick="toggleAutoReset()" id="auto-reset"></button>
+                    <span>|</span>
+                </div>
+                <button onclick="reset()">undo all</button>
+            </div>
+
+            <div class="flex flex-row justify-self-end gap-2">
+                <label>limit:</label>
+                <button onclick="toggleLimitAction()" id="limit-tgl"></button>
+            </div>
+
+        </div>
+
+        <div class="flex flex-col" id="list"></div>
+
+        <div class="flex flex-row justify-between items-baseline">
+            <button onclick=""><span class="text-slate-400">backlog &darr;</span></button>
+            <button onclick="clearAll()" class="remove" id="delete-all">remove all</button>
+        </div>
+
+        <input class="bg-slate-100 dark:bg-slate-700 w-full" type=text id="task-input"
+            placeholder="Type a new task here..." />
+
+        <div class="text-slate-400 px-6 max-sm:px-3">
+            Made by <a href="" class="underline">Kyrylo Khlopko</a>
+        </div>
+
+        <script src=everyday.js></script>
+</body>
+
+</html>

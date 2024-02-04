@@ -1,7 +1,9 @@
+
 type TaskItem = {
     id: string,
     name: string,
     isDone: boolean,
+    backlog?: boolean,
 };
 
 function lastVisit(): Date {
@@ -43,7 +45,7 @@ function refreshItemsIfNewDay() {
 
 function load(): TaskItem[] {
     const serializedItems = window.localStorage.getItem('tasks') || '[]';
-    return JSON.parse(serializedItems);
+    return JSON.parse(serializedItems).filter((item: TaskItem) => !item.backlog);
 }
 
 function create(name: string) {

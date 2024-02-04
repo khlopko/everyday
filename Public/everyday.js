@@ -31,7 +31,7 @@ function refreshItemsIfNewDay() {
 }
 function load() {
     var serializedItems = window.localStorage.getItem('tasks') || '[]';
-    return JSON.parse(serializedItems);
+    return JSON.parse(serializedItems).filter(function (item) { return !item.backlog; });
 }
 function create(name) {
     var items = load();
